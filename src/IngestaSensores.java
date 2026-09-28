@@ -55,6 +55,7 @@ public class IngestaSensores {
         BancoDePruebas.experimentoDos();
         BancoDePruebas.experimentoTres();
         BancoDePruebas.experimentoCuatro();
+        BancoDePruebas.casosDePrueba();
     }
 
     private static void imprimirResumenIngesta(

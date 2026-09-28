@@ -52,9 +52,9 @@ public class BancoDePruebas {
         System.out.println("=== EXPERIMENTO 2: BUSQUEDA POR ESTACION ===");
 
         LecturaSensor[] aMano = {
-            new LecturaSensor("EST-001", "0000000000", 15.0, 70.0, 20.0),
-            new LecturaSensor("EST-002", "0000000001", 16.0, 68.0, 22.0),
-            new LecturaSensor("EST-003", "0000000002", 17.0, 66.0, 24.0)
+                new LecturaSensor("EST-001", "0000000000", 15.0, 70.0, 20.0),
+                new LecturaSensor("EST-002", "0000000001", 16.0, 68.0, 22.0),
+                new LecturaSensor("EST-003", "0000000002", 17.0, 66.0, 24.0)
         };
 
         int posA = BuscadorLecturas.buscarPorEstacion(aMano, "EST-002");
@@ -115,11 +115,11 @@ public class BancoDePruebas {
 
         System.out.println(
                 "Lineal  -> posicion: " + posLineal
-                + ", comparaciones: " + compLineal);
+                        + ", comparaciones: " + compLineal);
 
         System.out.println(
                 "Binaria -> posicion: " + posBinaria
-                + ", comparaciones: " + compBinaria);
+                        + ", comparaciones: " + compBinaria);
 
         System.out.println();
     }
@@ -170,5 +170,49 @@ public class BancoDePruebas {
         System.out.println(
                 "Encontrados por busqueda binaria: " + aciertosBinaria);
         System.out.println();
+    }
+
+    /**
+     * Casos de prueba mínimos de la búsqueda binaria por timestamp:
+     * primero, medio, último e inexistente, en arreglo pequeño y grande.
+     */
+    public static void casosDePrueba() {
+
+        System.out.println("=== CASOS DE PRUEBA: BUSQUEDA BINARIA ===");
+
+        int[] tamanos = {10, 1_000_000};
+
+        for (int n : tamanos) {
+
+            LecturaSensor[] datos = GeneradorDatos.generar(n);
+
+            System.out.println("Arreglo de " + n + " lecturas:");
+
+            verificarExistente("primer elemento", datos, 0);
+            verificarExistente("elemento intermedio", datos, n / 2);
+            verificarExistente("ultimo elemento", datos, n - 1);
+
+            verificarInexistente("inexistente (antes)", datos, "-000000001");
+            verificarInexistente("inexistente (despues)", datos, GeneradorDatos.timestampInexistente());
+
+            System.out.println();
+        }
+    }
+
+    private static void verificarExistente(String nombre, LecturaSensor[] datos, int posicionEsperada) {
+        String objetivo = GeneradorDatos.timestampEnPosicion(posicionEsperada);
+        int resultado = BuscadorLecturas.busquedaBinariaPorTimestamp(datos, objetivo);
+        int comparaciones = BuscadorLecturas.getComparaciones();
+        String estado = (resultado == posicionEsperada) ? "OK" : "FALLA";
+        System.out.printf("  %-24s esperada: %8d  obtenida: %8d  comparaciones: %3d  %s%n",
+                nombre, posicionEsperada, resultado, comparaciones, estado);
+    }
+
+    private static void verificarInexistente(String nombre, LecturaSensor[] datos, String objetivo) {
+        int resultado = BuscadorLecturas.busquedaBinariaPorTimestamp(datos, objetivo);
+        int comparaciones = BuscadorLecturas.getComparaciones();
+        String estado = (resultado == -1) ? "OK" : "FALLA";
+        System.out.printf("  %-24s esperada: %8d  obtenida: %8d  comparaciones: %3d  %s%n",
+                nombre, -1, resultado, comparaciones, estado);
     }
 }
