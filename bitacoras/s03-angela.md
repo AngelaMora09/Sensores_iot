@@ -103,8 +103,10 @@ Registra los commits que muestran tu aporte individual.
 
 | Commit | Mensaje | Que demuestra |
 |---|---|---|
-| `[hash corto]` | `[mensaje del commit]` | [Cambio realizado] |
-| `[hash corto]` | `[mensaje del commit]` | [Cambio realizado] |
+| `02b386d` | `test: agregar casos de prueba minimos de busqueda binaria` | [ Casos de prueba de la búsqueda binaria (primero, medio, último e inexistentes) y su llamada desde IngestaSensores ] |
+| `e6d970b` |  `docs: agregar respuestas de comprension de Git y pensamiento critico` | [Mis respuestas de comprensión de Git y de pensamiento crítico] |
+| `ee1cf4b` |  `docs: agregar traza de busqueda binaria con limite incorrecto` | [La traza a mano del ciclo con el límite incorrecto] |
+| `b9fdcd0` | `docs: registrar mediciones de busqueda lineal y binaria` | [Mis mediciones de comparaciones y tiempos] |
 
 ## 10. Reexplicacion final
 
